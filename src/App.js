@@ -10,14 +10,43 @@ const Div = styled.div`
       background: lightgrey;
   `
 
-const App =()=> {
-  const todoList = todosData.map(item => <TodoItem key={item.id} item={item} />)
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      list: todosData,
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(id){
+    this.setState(prevState=>{
+      const newList = prevState.list.map(todo => {
+        if(todo.id === id){
+          todo.completed = !todo.completed
+        }
+        return todo
+      })
+      return {
+        list: newList
+      }
+    })
+  }
+
+  render(){
+  const todoList = this.state.list.map(item => 
+    <TodoItem 
+      key={item.id} 
+      item={item}
+      handleChange={this.handleChange}
+    />)
 
   return(
     <Div>
       {todoList}
     </Div>
   )
+}
 }
 
 export default App;

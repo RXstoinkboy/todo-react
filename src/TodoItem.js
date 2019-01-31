@@ -21,7 +21,10 @@ const Container = styled.div`
 const TodoItem =(props)=>{
     return(
         <Container>
-            <input type="checkbox" checked={props.item.completed} />
+            <input 
+                type="checkbox" 
+                checked={props.item.completed} 
+                onChange={()=>{props.handleChange(props.item.id)}} />
             <Paragraph>{props.item.text}</Paragraph>
         </Container>
     )
